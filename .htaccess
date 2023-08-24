@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Stop processing if already in the /view directory
+
+RewriteRule ^view/ - [L]
+
+# Static resources if they exist
+
+RewriteCond %{DOCUMENT_ROOT}/view/$1 -f
+RewriteRule (.+) view/$1 [L]
+
+# Route all other requests
+
+RewriteRule (.\*) view/index.php?route=$1 [L,QSA]
+</IfModule>
